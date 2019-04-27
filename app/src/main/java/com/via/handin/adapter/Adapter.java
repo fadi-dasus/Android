@@ -46,7 +46,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         final Note note = notes.get(i);
         viewHolder.textView.setText(note.getText());
 
-       
+        viewHolder.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, Details.class);
+                intent.putExtra(NOTE_KEY, note.getId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

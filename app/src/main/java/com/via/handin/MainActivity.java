@@ -1,5 +1,6 @@
 package com.via.handin;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,14 +13,30 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.via.handin.adapter.Adapter;
+import com.via.handin.model.Note;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
 
     @BindView(R.id.recycle_view)
     RecyclerView recyclerView;
+
+    private List<Note> notes = new ArrayList<>();
+    private Adapter adapter;
+
+    @OnClick(R.id.fab)
+    void fabClickHandler() {
+        Intent intent = new Intent(this, Details.class);
+        startActivity(intent);
+    }
 
 
     @Override
@@ -31,14 +48,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         initiateRecyclerView();
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
     }
 
     private void initiateRecyclerView() {

@@ -122,6 +122,10 @@ public class MainActivity extends AppCompatActivity {
         } else if (id == R.id.action_delete_all) {
             removeAllData();
         }
+        else if (id == R.id.action_get_hint) {
+           Intent intent = new Intent(this,HintActivity.class);
+           startActivity(intent);
+        }
 
 
         return super.onOptionsItemSelected(item);

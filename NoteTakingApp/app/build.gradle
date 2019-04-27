@@ -14,10 +14,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            manifestPlaceholders = [usesCleartextTraffic:"false"]
+            manifestPlaceholders = [usesCleartextTraffic: "false"]
             minifyEnabled false
         }
-        debug{
+        debug {
             manifestPlaceholders = [usesCleartextTraffic:"true"]
         }
     }
@@ -46,5 +46,5 @@ android {
 
 dependencies {
     implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }
-

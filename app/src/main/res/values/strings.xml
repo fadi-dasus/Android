@@ -92,4 +92,5 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="write_your_note">Write your note</string>
+    <string name="add_dummy_notes">Add Dummy Notes</string>
 </resources>

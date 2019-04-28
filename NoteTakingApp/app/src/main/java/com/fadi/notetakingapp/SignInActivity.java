@@ -76,7 +76,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         updateStatus();
 
-        //TODO THIS DO __________________________________________________
+        //TODO save email __________________________________________________
         SharedPreferences prefs =
                 getSharedPreferences(MY_GLOBAL_PREFS, MODE_PRIVATE);
         String email = prefs.getString(EMAIL_KEY, "");
@@ -84,7 +84,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         if (!TextUtils.isEmpty(email)) {
             etEmail.setText(email);
         }
-        //TODO ______________________________________________
+
     }
 
     /**
@@ -186,7 +186,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                             getSharedPreferences(MY_GLOBAL_PREFS, MODE_PRIVATE).edit();
                                     editor.putString(EMAIL_KEY, myEmail);
                                     editor.apply();
-                                    //TODO _______________________________________
+                                   
 
 
                                 } else {

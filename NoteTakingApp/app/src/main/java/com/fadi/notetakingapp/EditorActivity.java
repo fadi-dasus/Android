@@ -213,7 +213,7 @@ public class EditorActivity extends AppCompatActivity {
             case 10:
                 if (resultCode == RESULT_OK && data != null) {
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    mTextView.setText(result.get(0));
+                    mTextView.append(" " + result.get(0));
                 }
                 break;
         }

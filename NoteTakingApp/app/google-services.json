@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "329980280080",
+    "firebase_url": "https://notetakingapp-9310d.firebaseio.com",
+    "project_id": "notetakingapp-9310d",
+    "storage_bucket": "notetakingapp-9310d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:329980280080:android:42094533fc92e473",
+        "android_client_info": {
+          "package_name": "com.fadi.notetakingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "329980280080-ejnvcgp2hm1j8ufmdj30dspbfkpft3q5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fadi.notetakingapp",
+            "certificate_hash": "527645c32eb52938c6b0ff4133fffc5883b6f838"
+          }
+        },
+        {
+          "client_id": "329980280080-b94cbg14a2irvic0viujsgguhphhjbq1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_UdPZbgAANw98nX9XNeNXWYw0-A_mrBY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "329980280080-b94cbg14a2irvic0viujsgguhphhjbq1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

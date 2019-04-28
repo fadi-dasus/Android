@@ -123,8 +123,13 @@ public class MainActivity extends AppCompatActivity {
             removeAllData();
         }
         else if (id == R.id.action_get_hint) {
-           Intent intent = new Intent(this,HintActivity.class);
-           startActivity(intent);
+            Intent intent = new Intent(this,HintActivity.class);
+            startActivity(intent);
+        }
+
+        else if (id == R.id.action_sign_in) {
+            Intent intent = new Intent(this,SignInActivity.class);
+            startActivity(intent);
         }
 
 

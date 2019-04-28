@@ -96,4 +96,5 @@
     <string name="delete_all_data">delete_all_data</string>
     <string name="get_hint">Get Hint</string>
     <string name="title_activity_hint">HintActivity</string>
+    <string name="title_activity_sign_in">SignInActivity</string>
 </resources>

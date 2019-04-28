@@ -1,9 +1,12 @@
 package com.fadi.notetakingapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -27,6 +30,8 @@ import butterknife.ButterKnife;
 // this activity will manage sign in using Firebase auth
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
     private final String TAG = "FB_SIGNIN";
+    public static final String MY_GLOBAL_PREFS = "my_global_prefs";
+    public static final String EMAIL_KEY = "email_key";
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -70,6 +75,16 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         };
 
         updateStatus();
+
+        //TODO THIS DO __________________________________________________
+        SharedPreferences prefs =
+                getSharedPreferences(MY_GLOBAL_PREFS, MODE_PRIVATE);
+        String email = prefs.getString(EMAIL_KEY, "");
+
+        if (!TextUtils.isEmpty(email)) {
+            etEmail.setText(email);
+        }
+        //TODO ______________________________________________
     }
 
     /**
@@ -164,6 +179,16 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                     startActivity(intent);
 
 
+                                    //TODO save credentials in shared preference
+                                    //________________________________________
+                            String myEmail = etEmail.getText().toString();
+                                    SharedPreferences.Editor editor =
+                                            getSharedPreferences(MY_GLOBAL_PREFS, MODE_PRIVATE).edit();
+                                    editor.putString(EMAIL_KEY, myEmail);
+                                    editor.apply();
+                                    //TODO _______________________________________
+
+
                                 } else {
                                     Toast.makeText(SignInActivity.this, "Sign in failed", Toast.LENGTH_SHORT)
                                             .show();
@@ -228,4 +253,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     }
                 });
     }
+
+
 }

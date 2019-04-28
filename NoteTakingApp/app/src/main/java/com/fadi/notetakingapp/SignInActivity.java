@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 
 
+// this activity will manage signin using Firebase auth
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
     private final String TAG = "FB_SIGNIN";
 
@@ -42,10 +43,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         etEmail = (EditText) findViewById(R.id.etEmailAddr);
         etPass = (EditText) findViewById(R.id.etPassword);
 
-        // TODO: Get a reference to the Firebase auth object
+        // Get a reference to the Firebase auth object
         mAuth = FirebaseAuth.getInstance();
 
-        // TODO: Attach a new AuthListener to detect sign in and out
+        // Attach a new AuthListener to detect sign in and out
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -70,14 +71,14 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onStart() {
         super.onStart();
-        // TODO: add the AuthListener
+        //  add the AuthListener
         mAuth.addAuthStateListener(mAuthListener);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        // TODO: Remove the AuthListener
+        //  Remove the AuthListener
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
@@ -140,7 +141,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         String email = etEmail.getText().toString();
         String password = etPass.getText().toString();
 
-        // TODO: sign the user in with email and password credentials
+        // sign the user in with email and password credentials
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this,
                         new OnCompleteListener<AuthResult>() {
@@ -172,7 +173,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void signUserOut() {
-        // TODO: sign the user out
+        // sign the user out
         mAuth.signOut();
         updateStatus();
     }
@@ -184,7 +185,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         String email = etEmail.getText().toString();
         String password = etPass.getText().toString();
 
-        // TODO: Create the user account
+        // Create the user account
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this,
                         new OnCompleteListener<AuthResult>() {

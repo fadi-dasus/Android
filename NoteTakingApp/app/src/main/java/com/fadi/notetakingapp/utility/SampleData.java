@@ -7,7 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-
+// dummy data that has been used during the development phase
 public class SampleData {
 
     private static final String DUMMY_DATE1 = "A simple note";

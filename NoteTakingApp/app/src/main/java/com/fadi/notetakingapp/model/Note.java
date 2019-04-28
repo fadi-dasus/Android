@@ -6,6 +6,9 @@ import android.arch.persistence.room.PrimaryKey;
 
 import java.util.Date;
 
+// the main entity in the app
+
+
 @Entity(tableName = "notes")
 public class Note {
     @PrimaryKey(autoGenerate = true)
@@ -26,7 +29,8 @@ public class Note {
         this.date = date;
         this.text = text;
     }
-
+    // room library will use only one
+    // constructor from this class, so we annotate other constructors with Ignore
     @Ignore
     public Note() {
     }

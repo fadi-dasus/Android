@@ -12,7 +12,7 @@ import java.util.List;
 
 // WE NEED a view model class for each activity
 public class MainViewModel extends AndroidViewModel {
-
+// using a live data object, hence no need to the executor class( live data mange the thread in the background)
     public LiveData<List<Note>> notes;
     private AppRepository repository;
 
@@ -21,7 +21,7 @@ public class MainViewModel extends AndroidViewModel {
         repository = AppRepository.getInstance(application.getApplicationContext());
         notes = repository.notes;
     }
-
+// method for testing purposes
     public void addSampleData() {
         repository.addDummyData();
     }

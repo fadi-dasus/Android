@@ -31,21 +31,20 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
     @NonNull
     @Override
-    //will be called each time a new view holder has to be created(the inner class)
-    // each time the view refreshed with the java object note
+    //will be called each time a new view holder has to be created(the ViewHolder class)
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        // first I need to inflate the layout that I will be using
+        //inflating the customized layout for my item list
         LayoutInflater infalter = LayoutInflater.from(parent.getContext());
         View view = infalter.inflate(R.layout.note_list_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    // we be called each time I want to update the display of the list item
+    // when updating the display of the list item
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         final Note note = notes.get(i);
         viewHolder.mTextView.setText(note.getText());
-
+        // opening the note by clicking the floating action button
         viewHolder.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,7 +56,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
     }
 
     @Override
-    // just for returning the number of items in the data
+    // returning number of items
     public int getItemCount() {
         return notes.size();
     }

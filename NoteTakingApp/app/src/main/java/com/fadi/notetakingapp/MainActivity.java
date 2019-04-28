@@ -27,6 +27,7 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
+    // butter knife library for reducing Boilerplate code when binding component
     @BindView(R.id.recycle_view)
     RecyclerView mRecyclerView;
 
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        // binding the two component initialised above
         ButterKnife.bind(this);
         initRecyclerView();
         initViewModel();
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initViewModel() {
-
+        // observing the changes coming from the live data object
         // this method will be called automatically whenever the data has been updated
 
         final Observer<List<Note>> notesObserver =
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                     // here I am receiving the notes data (the changed data)
                     // I am not getting the live data object but just the data it is wrapped around
                     public void onChanged(@Nullable List<Note> notes) {
-                        // first empty my collection because the reference to my collection
+                        // empty the collection because a reference it
                         // will be maintained through the entire activity life cycle
 
                         notesData.clear();
@@ -72,12 +73,12 @@ public class MainActivity extends AppCompatActivity {
                         notesData.addAll(notes);
 
                         if (adapter == null) {
-                            // it is not just this, but main activity . this because it is wrapped inside another object now
+                            //activity.this and not only this because it is wrapped inside another object now
                             adapter = new NoteAdapter(notesData,
                                     MainActivity.this);
                             mRecyclerView.setAdapter(adapter);
                         }
-                        // then when I got the data I need to refresh the recycle view
+                        // when I got the data I need to refresh the recycle view
                         else {
                             adapter.notifyDataSetChanged();
                         }
@@ -89,12 +90,12 @@ public class MainActivity extends AppCompatActivity {
                 .get(MainViewModel.class);
         viewModel.notes.observe(this, notesObserver);
     }
-
+// initialising the recycle view
     private void initRecyclerView() {
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
-
+// add a line between the notes to increase readability
         DividerItemDecoration divider = new DividerItemDecoration(
                 mRecyclerView.getContext(), layoutManager.getOrientation());
         mRecyclerView.addItemDecoration(divider);
@@ -110,12 +111,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
+        //adding functionality
         if (id == R.id.action_add_sample_data) {
             addSampleData();
             return true;
@@ -141,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+// for testing
     private void addSampleData() {
         viewModel.addSampleData();
     }

@@ -3,6 +3,8 @@ package com.fadi.notetakingapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+// this class is used to map the data from the webservice
+// and it is Parcelable so that I can share it using intent object between activities
 public class DataItem implements Parcelable {
 
     private String itemName;

@@ -3,7 +3,7 @@ package com.fadi.notetakingapp.utility;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-
+// a class checking connection status
 public class NetworkHelper {
 
     public static boolean checkConnection(Context context) {

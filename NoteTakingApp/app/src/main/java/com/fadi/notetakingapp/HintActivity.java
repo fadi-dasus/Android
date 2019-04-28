@@ -19,22 +19,22 @@ import com.fadi.notetakingapp.utility.NetworkHelper;
 public class HintActivity extends AppCompatActivity {
 
 
-    TextView output;
+    TextView textView;
     private boolean networkOk;
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            // I am receiving the message from the broadcast passing the payload key
+            //receiving the message from the broadcast passing the payload key
 
             DataItem[] items = (DataItem[]) intent.getParcelableArrayExtra(MyService.MY_SERVICE_PAYLOAD);
 
             for (DataItem item: items) {
 
-                output.append(item.getItemName() + "\n");
+                textView.append(item.getItemName() + "\n");
             }
             // after doing this we need to register for listening to the message which has
-            // the message identifier key which I send it with(in the on create method)
+            // the message identifier key which I send with(in the on create method)
 
         }
     };
@@ -46,16 +46,15 @@ public class HintActivity extends AppCompatActivity {
         setContentView(R.layout.activity_hint);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        output = (TextView) findViewById(R.id.output);
+        textView = (TextView) findViewById(R.id.output);
 
-        // first if I want to listen to many messages I will register to as many as I want by passing the key
+        // listening for messages coming from the broadcast instance
         LocalBroadcastManager.getInstance(getApplicationContext())
                 .registerReceiver(receiver, new IntentFilter(MyService.MY_SERVICE_MESSAGE));
-        // remember to unregister the receiver when the activity is closing down
 
 
         networkOk = NetworkHelper.checkConnection(this);
-        output.append("Network ok: " + networkOk);
+
 
     }
 
@@ -79,6 +78,6 @@ public class HintActivity extends AppCompatActivity {
     }
 
     public void clearClickHandler(View view) {
-        output.setText("");
+        textView.setText("");
     }
 }

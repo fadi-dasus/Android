@@ -5,8 +5,8 @@ import android.arch.persistence.room.TypeConverter;
 import java.util.Date;
 
 
-// this class is for dealing with date since the SQLite does not
-// know how to deal with date
+// this class is for dealing with date because the SQLite does not
+// know how to deal with date objects
 public class DateConverter {
 
 

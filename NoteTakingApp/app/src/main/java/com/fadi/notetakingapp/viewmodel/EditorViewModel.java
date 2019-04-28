@@ -13,16 +13,17 @@ import java.util.Date;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class EditorViewModel extends AndroidViewModel {
-    // for this view model I will use an object called mutable live data
-    // this object has a method that let me change its value at runtime
-    //unlike live data which is immutable
-    // each time you post a value the object published that change to any observer
-    // activity or fragment that observe to this view model
 
+public class EditorViewModel extends AndroidViewModel {
+    // in this view model I will use a mutable live data object
+    // which allows me change its value at runtime
+    //unlike live data which is immutable
+    // each time we post a value the object publishes the changes to all observers
+    // (activity or fragment) that observe this view model
+    // one downside of this object is that I need to manage the threading unlike the live data which do it in the background
     public MutableLiveData<Note> liveData =
             new MutableLiveData<>();
-
+// Executor object to manage the thread
     private Executor executor = Executors.newSingleThreadExecutor();
     private AppRepository repository;
 
@@ -33,13 +34,13 @@ public class EditorViewModel extends AndroidViewModel {
 
 
     public void getData(final int noteId) {
-        // because it is not a live data object I need to manage the thread
+        // getting the data using the executor object for managing threading
         executor.execute(new Runnable() {
             @Override
             public void run() {
                 Note note = repository.getNoteByid(noteId);
                 // when I am getting the note back I will post it using my MutableLiveData object
-                // whenever I call post value this will cause the observer to call its change method and diplay the result
+                // whenever I call post value this will cause the observer to call its change method and display the content
                 liveData.postValue(note);
             }
         });

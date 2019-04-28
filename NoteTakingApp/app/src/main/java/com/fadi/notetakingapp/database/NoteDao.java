@@ -10,13 +10,14 @@ import android.arch.persistence.room.Query;
 import com.fadi.notetakingapp.model.Note;
 
 import java.util.List;
-
+// interface supports annotation using the room library
 @Dao
 public interface NoteDao {
-    // this allows the method to be used as insert ot update
+    // this allows the method to be used as insert or update
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertNote(Note note);
 
+    // this method is used only for testing purposes
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<Note> note);
 
@@ -32,6 +33,7 @@ public interface NoteDao {
     @Query("DELETE FROM notes")
     int deleteAll();
 
+    // this query is used only for testing
     @Query("SELECT COUNT(*) FROM notes")
     int getCount();
 

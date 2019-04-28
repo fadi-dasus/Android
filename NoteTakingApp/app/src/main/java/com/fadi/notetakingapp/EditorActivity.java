@@ -24,12 +24,13 @@ public class EditorActivity extends AppCompatActivity {
 
     // using butter knife to bind the text view that I have in the content.xml
     //which is the view for this note data
-//then I need to bind it on create line35
-    // when I did this, Ihave a place to disply the data
+    //then I need to bind it on create method
 
     @BindView(R.id.note_text)
     TextView mTextView;
+
     private EditorViewModel viewModel;
+    // two booleans to check if the note is a new note or an old one
     private boolean isNew = false;
     private boolean isOld = false;
     public static final String My_Key = "KEY";
@@ -43,39 +44,38 @@ public class EditorActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_check);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // binding the text view using butter knife
         ButterKnife.bind(this);
-        if (savedInstanceState != null) {
-            isOld = savedInstanceState.getBoolean(My_Key);
 
+        if (savedInstanceState != null) {
+            // checking the status of the note( new or old)
+            isOld = savedInstanceState.getBoolean(My_Key);
         }
         initViewModel();
     }
 
+    //initializing the vew model to the appropriate class
     private void initViewModel() {
-
-        // in this method I need to initialize the vew model to the appropriate class
-
         viewModel = ViewModelProviders.of(this)
                 .get(EditorViewModel.class);
-        // I am going to be observing the view model live data and display the new note when it is
-        // posted so I need a reference to my View in my layout (we are using content editor.xml)
+        // observing the view model live data and displaying the note when it is
+        // posted, hence we need a reference to my View in my layout (we are using content editor.xml)
         viewModel.liveData.observe(this, new Observer<Note>() {
             @Override
             public void onChanged(@Nullable Note noteEntity) {
                 if (!isOld) {
-                    // requireNonNull is just to ensure that the note is not null it is like if not null
                     mTextView.setText(noteEntity.getText());
                 }
             }
         });
 
-        Bundle mBundle = getIntent().getExtras();
-        if (mBundle == null) {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle == null) {
             setTitle("New Note");
             isNew = true;
         } else {
             setTitle("Edit Note");
-            int noteId = mBundle.getInt(NoteAdapter.NOTE_KEY);
+            int noteId = bundle.getInt(NoteAdapter.NOTE_KEY);
             viewModel.getData(noteId);
         }
 
@@ -85,11 +85,11 @@ public class EditorActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // we are checking the boolean to show the garbage just
-        // for an existing note not for a new one
+        // we are checking the boolean to show the garbage icon
+        //only for the old notes
         if (!isNew) {
             // here we are getting the xml file that represent the
-            // the xml for the menu editor content which have the check icon and the garbage
+            // the xml for the menu editor content which has the garbage icon
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_editor, menu);
         }
@@ -99,7 +99,7 @@ public class EditorActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        //this is an id reserved for the up button
+        //this is an id reserved for the up button from the android sdk
         if (item.getItemId() == android.R.id.home) {
             saveChanges();
             return true;

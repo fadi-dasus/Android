@@ -9,15 +9,17 @@ import retrofit2.http.GET;
 
 public interface MyWebService {
 
+// retrofil uses HttpOK in the background but it reduces the code significantly
     String BASE_URL = "http://560057.youcanlearnit.net/";
-    String FEED = "services/json/itemsfeed.php";
+    String REST_URL = "services/json/itemsfeed.php";
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    @GET(FEED)
+    //
+    @GET(REST_URL)
     Call<DataItem[]> dataItems();
 
 }

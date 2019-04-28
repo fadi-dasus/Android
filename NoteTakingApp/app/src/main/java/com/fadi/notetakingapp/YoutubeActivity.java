@@ -14,7 +14,8 @@ public class YoutubeActivity extends YouTubeBaseActivity
         implements YouTubePlayer.OnInitializedListener{
 
     public static final String DEVELOPER_KEY = "AIzaSyBXoWKtvTmmP83Q1jLK_P9O3JeCUHFFsHY";
-    private static final String VIDEO_ID = "g2xb9fjvcyc";
+    private static final String VIDEO_ID = "y-49wGOofZU";
+    
     private static final int RECOVERY_DIALOG_REQUEST = 1;
     YouTubePlayerFragment myYouTubePlayerFragment;
 

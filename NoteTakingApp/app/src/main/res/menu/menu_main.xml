@@ -2,11 +2,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.fadi.notetakingapp.MainActivity">
-    <item
-        android:id="@+id/action_add_sample_data"
-        android:orderInCategory="100"
-        android:title="@string/action_add_sample_data"
-        app:showAsAction="never" />
+    <!--<item-->
+        <!--android:id="@+id/action_add_dummy_data"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="@string/dummy_notes_for_test"-->
+        <!--app:showAsAction="never" />-->
     <item
         android:id="@+id/action_delete_all"
         android:orderInCategory="100"
@@ -15,7 +15,7 @@
     <item
         android:id="@+id/action_get_hint"
         android:orderInCategory="100"
-        android:title="@string/get_hint"
+        android:title="@string/food_list"
         app:showAsAction="never" />
 
     <item

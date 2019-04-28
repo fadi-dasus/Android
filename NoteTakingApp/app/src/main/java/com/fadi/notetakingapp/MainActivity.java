@@ -113,10 +113,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         //adding functionality
-        if (id == R.id.action_add_sample_data) {
-            addSampleData();
-            return true;
-        } else if (id == R.id.action_delete_all) {
+//        if (id == R.id.action_add_dummy_data) {
+//            addSampleData();
+//            return true;
+//        } else
+            if (id == R.id.action_delete_all) {
             removeAllData();
         }
         else if (id == R.id.action_get_hint) {

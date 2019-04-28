@@ -55,6 +55,15 @@ public class HintActivity extends AppCompatActivity {
 
         networkOk = NetworkHelper.checkConnection(this);
 
+        if (networkOk) {
+
+            Intent intent = new Intent(this, MyService.class);
+            startService(intent);
+
+        } else {
+            Toast.makeText(this, "Network not available!", Toast.LENGTH_SHORT).show();
+        }
+
 
     }
 
@@ -65,19 +74,4 @@ public class HintActivity extends AppCompatActivity {
                 .unregisterReceiver(receiver);
     }
 
-    public void runClickHandler(View view) {
-        if (networkOk) {
-
-            Intent intent = new Intent(this, MyService.class);
-            startService(intent);
-
-        } else {
-            Toast.makeText(this, "Network not available!", Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
-    public void clearClickHandler(View view) {
-        textView.setText("");
-    }
 }

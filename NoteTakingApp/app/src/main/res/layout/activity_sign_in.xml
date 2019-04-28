@@ -48,7 +48,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign In"
+        android:text="@string/sign_in"
         android:id="@+id/btnSignIn"
         android:layout_below="@+id/etPassword"
         android:layout_alignParentStart="true"
@@ -57,7 +57,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create Account"
+        android:text="@string/create_account"
         android:id="@+id/btnCreate"
         android:layout_alignBottom="@+id/btnSignIn"
         android:layout_toEndOf="@+id/textView2" />
@@ -74,7 +74,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign Out"
+        android:text="@string/sign_out"
         android:id="@+id/btnSignOut"
         android:layout_below="@+id/tvSignInStatus"
         android:layout_alignParentStart="true"

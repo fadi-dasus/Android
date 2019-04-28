@@ -41,10 +41,23 @@
         android:id="@+id/Read_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Read"
         android:onClick="ClickMeToSpeakUP"
+        android:text="Read"
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="end|center" />
+
+    <ImageView
+        android:id="@+id/btnSpeak"
+        android:layout_width="100dp"
+        android:layout_height="66dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="60dp"
+        android:gravity="center"
+        android:onClick="getSpeechInput"
+        android:src="@drawable/ic_mic"
+        app:layout_anchor="@+id/include"
+        app:layout_anchorGravity="start|center" />
 
 
 </android.support.design.widget.CoordinatorLayout>

@@ -2,7 +2,9 @@ package com.fadi.notetakingapp;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,12 +15,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fadi.notetakingapp.adapter.NoteAdapter;
 import com.fadi.notetakingapp.model.Note;
 
 import com.fadi.notetakingapp.viewmodel.EditorViewModel;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -183,5 +187,35 @@ public class EditorActivity extends AppCompatActivity {
             tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
         } else
             tts.speak(text + " ", TextToSpeech.QUEUE_FLUSH, null);
+    }
+
+
+
+    // speak to text
+    public void getSpeechInput(View view) {
+
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(intent, 10);
+        } else {
+            Toast.makeText(this, "Please Check your Speech Input Sensor", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case 10:
+                if (resultCode == RESULT_OK && data != null) {
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    mTextView.setText(result.get(0));
+                }
+                break;
+        }
     }
 }

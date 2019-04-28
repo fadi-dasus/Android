@@ -3,18 +3,23 @@ package com.fadi.notetakingapp;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.fadi.notetakingapp.adapter.NoteAdapter;
 import com.fadi.notetakingapp.model.Note;
 
 import com.fadi.notetakingapp.viewmodel.EditorViewModel;
+
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +33,8 @@ public class EditorActivity extends AppCompatActivity {
 
     @BindView(R.id.note_text)
     TextView mTextView;
+
+    TextToSpeech tts;
 
     private EditorViewModel viewModel;
     // two booleans to check if the note is a new note or an old one
@@ -52,6 +59,27 @@ public class EditorActivity extends AppCompatActivity {
             isOld = savedInstanceState.getBoolean(My_Key);
         }
         initViewModel();
+
+        initTTX();
+
+    }
+
+    private void initTTX() {
+        tts = new TextToSpeech(EditorActivity.this, new TextToSpeech.OnInitListener() {
+
+            @Override
+            public void onInit(int status) {
+                // TODO Auto-generated method stub
+                if (status == TextToSpeech.SUCCESS) {
+                    int result = tts.setLanguage(Locale.US);
+                    if (result == TextToSpeech.LANG_MISSING_DATA ||
+                            result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Log.e("error", "This Language is not supported");
+                    }
+                } else
+                    Log.e("error", "Initilization Failed!");
+            }
+        });
     }
 
     //initializing the vew model to the appropriate class
@@ -130,5 +158,30 @@ public class EditorActivity extends AppCompatActivity {
         outState.putBoolean(My_Key, true);
 
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onPause() {
+        // TODO Auto-generated method stub
+
+        if (tts != null) {
+
+            tts.stop();
+            tts.shutdown();
+        }
+        super.onPause();
+    }
+
+
+
+    public void ClickMeToSpeakUP(View view) {
+        // TODO Auto-generated method stub
+        String text;
+        text = mTextView.getText().toString();
+        if (text == null || "".equals(text)) {
+            text = "Content not available";
+            tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+        } else
+            tts.speak(text + " ", TextToSpeech.QUEUE_FLUSH, null);
     }
 }

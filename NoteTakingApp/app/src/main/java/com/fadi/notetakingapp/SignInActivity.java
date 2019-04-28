@@ -1,5 +1,6 @@
 package com.fadi.notetakingapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +36,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     @BindView(R.id.etEmailAddr)
      EditText etEmail;
+
+    private boolean youMadIt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +97,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.btnSignIn:
                 signUserIn();
+
                 break;
 
             case R.id.btnCreate:
@@ -155,12 +159,19 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                 if (task.isSuccessful()) {
                                     Toast.makeText(SignInActivity.this, "Signed in", Toast.LENGTH_SHORT)
                                             .show();
+                                    // TODO create the activity call here
+                                    Intent intent = new Intent(SignInActivity.this,YoutubeActivity.class);
+                                    startActivity(intent);
+
+
                                 } else {
                                     Toast.makeText(SignInActivity.this, "Sign in failed", Toast.LENGTH_SHORT)
                                             .show();
                                 }
 
                                 updateStatus();
+
+
                             }
                         })
                 .addOnFailureListener(new OnFailureListener() {

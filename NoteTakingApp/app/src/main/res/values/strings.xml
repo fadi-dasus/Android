@@ -97,4 +97,5 @@
     <string name="get_hint">Get Hint</string>
     <string name="title_activity_hint">HintActivity</string>
     <string name="title_activity_sign_in">SignInActivity</string>
+    <string name="title_activity_youtube">YoutubeActivity</string>
 </resources>

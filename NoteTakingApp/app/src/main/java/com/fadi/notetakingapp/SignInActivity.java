@@ -19,16 +19,22 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-// this activity will manage signin using Firebase auth
+
+// this activity will manage sign in using Firebase auth
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
     private final String TAG = "FB_SIGNIN";
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-    private EditText etPass;
-    private EditText etEmail;
+    @BindView(R.id.etPassword)
+     EditText etPass;
+
+    @BindView(R.id.etEmailAddr)
+     EditText etEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +46,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         findViewById(R.id.btnSignIn).setOnClickListener(this);
         findViewById(R.id.btnSignOut).setOnClickListener(this);
 
-        etEmail = (EditText) findViewById(R.id.etEmailAddr);
-        etPass = (EditText) findViewById(R.id.etPassword);
+        ButterKnife.bind(this);
 
         // Get a reference to the Firebase auth object
         mAuth = FirebaseAuth.getInstance();

@@ -44,7 +44,8 @@
         android:onClick="ClickMeToSpeakUP"
         android:text="Read"
         app:layout_anchor="@+id/include"
-        app:layout_anchorGravity="end|center" />
+        android:layout_gravity="bottom"
+        app:layout_anchorGravity="end|bottom" />
 
     <ImageView
         android:id="@+id/btnSpeak"
@@ -53,11 +54,10 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="60dp"
-        android:gravity="center"
         android:onClick="getSpeechInput"
         android:src="@drawable/ic_mic"
         app:layout_anchor="@+id/include"
-        app:layout_anchorGravity="start|center" />
+        app:layout_anchorGravity="start|bottom" />
 
 
 </android.support.design.widget.CoordinatorLayout>

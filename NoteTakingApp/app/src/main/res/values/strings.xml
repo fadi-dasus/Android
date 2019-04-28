@@ -3,14 +3,14 @@
     <string name="title_activity_editor">EditorActivity</string>
     <string name="enter_note">Enter Note</string>
     <string name="delete">delete</string>
-    <string name="delete_all_data">delete_all_data</string>
+    <string name="delete_all_data">Delete All Notes</string>
     <string name="get_hint">Get Hint</string>
     <string name="title_activity_hint">HintActivity</string>
     <string name="title_activity_sign_in">SignInActivity</string>
     <string name="title_activity_youtube">YoutubeActivity</string>
-    <string name="food_list">Food List</string>
     <string name="dummy_notes_for_test">Dummy Notes for test</string>
     <string name="sign_in">Sign In</string>
     <string name="create_account">Create Account</string>
     <string name="sign_out">Sign Out</string>
+    <string name="dinner_ideas">Dinner Ideas</string>
 </resources>

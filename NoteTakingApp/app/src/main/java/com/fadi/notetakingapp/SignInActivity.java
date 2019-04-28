@@ -175,7 +175,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                     Toast.makeText(SignInActivity.this, "Signed in", Toast.LENGTH_SHORT)
                                             .show();
                                     // TODO create the activity call here
-                                    Intent intent = new Intent(SignInActivity.this,YoutubeActivity.class);
+                                    Intent intent = new Intent(SignInActivity.this,MainActivity.class);
                                     startActivity(intent);
 
 
@@ -186,7 +186,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                             getSharedPreferences(MY_GLOBAL_PREFS, MODE_PRIVATE).edit();
                                     editor.putString(EMAIL_KEY, myEmail);
                                     editor.apply();
-                                   
+
 
 
                                 } else {
@@ -255,4 +255,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
+    public void SeeIntroduction(View view) {
+        //
+Intent intent = new Intent(SignInActivity.this,YoutubeActivity.class);
+                                   startActivity(intent);
+
+    }
 }
+
+

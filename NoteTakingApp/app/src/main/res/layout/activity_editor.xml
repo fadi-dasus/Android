@@ -40,21 +40,20 @@
 
     <Button
         android:id="@+id/Read_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="139dp"
+        android:layout_height="65dp"
+        android:layout_gravity="bottom"
         android:onClick="ClickMeToSpeakUP"
         android:text="Read"
         app:layout_anchor="@+id/include"
-        android:layout_gravity="bottom"
         app:layout_anchorGravity="end|bottom" />
 
     <ImageView
         android:id="@+id/btnSpeak"
-        android:layout_width="100dp"
-        android:layout_height="66dp"
+        android:layout_width="144dp"
+        android:layout_height="70dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="60dp"
         android:onClick="getSpeechInput"
         android:src="@drawable/ic_mic"
         app:layout_anchor="@+id/include"

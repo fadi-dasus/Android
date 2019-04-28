@@ -28,10 +28,13 @@ public class HintActivity extends AppCompatActivity {
             //receiving the message from the broadcast passing the payload key
 
             DataItem[] items = (DataItem[]) intent.getParcelableArrayExtra(MyService.MY_SERVICE_PAYLOAD);
-
+            int counter =1 ;
             for (DataItem item: items) {
 
-                textView.append(item.getItemName() + "\n");
+
+                textView.append(counter + " : " + item.getItemName() + "\n");
+                textView.append(" ______________________________ " + "\n");
+                counter++;
             }
             // after doing this we need to register for listening to the message which has
             // the message identifier key which I send with(in the on create method)

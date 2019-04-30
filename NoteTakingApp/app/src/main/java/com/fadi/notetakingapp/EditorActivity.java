@@ -200,7 +200,7 @@ public class EditorActivity extends AppCompatActivity {
 
 
     public void ClickMeToSpeakUP(View view) {
-        // TODO Auto-generated method stub
+
         Bundle params = new Bundle();
         params.putInt("ButtonID", view.getId());
 
@@ -213,7 +213,7 @@ public class EditorActivity extends AppCompatActivity {
         } else
             tts.speak(text + " ", TextToSpeech.QUEUE_FLUSH, null);
 
-        Log.d(TAG, "Speak Button click logged");
+        Log.d(TAG, "Read Button click logged");
         mFBAnalytics.logEvent("Read", params);
     }
 
@@ -258,8 +258,13 @@ public class EditorActivity extends AppCompatActivity {
     }
 }
 
-
+//Android Debug Bridge (adb) is a versatile command-line tool
+// that lets you communicate with a device.
 //
+//This command displays your events in the Android Studio logcat,
+// helping me immediately verify that events are being sent.
+//You can view aggregated statistics about your events in the Firebase console dashboards.
+// These dashboards update periodically throughout the day
 //        adb shell
 //        $ setprop log.tag.FA-SVC VERBOSE
 //        $ logcat -v time -s FA FA-SVC

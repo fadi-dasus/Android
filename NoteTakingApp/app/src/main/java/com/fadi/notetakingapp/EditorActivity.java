@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.fadi.notetakingapp.adapter.NoteAdapter;
 import com.fadi.notetakingapp.model.Note;
 
+import com.fadi.notetakingapp.utility.Constant;
 import com.fadi.notetakingapp.viewmodel.EditorViewModel;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
@@ -50,7 +51,7 @@ public class EditorActivity extends AppCompatActivity {
     // two booleans to check if the note is a new note or an old one
     private boolean isNew = false;
     private boolean isOld = false;
-    public static final String My_Key = "KEY";
+
 
 
 
@@ -67,7 +68,7 @@ public class EditorActivity extends AppCompatActivity {
 
         if (savedInstanceState != null) {
             // checking the status of the note( new or old)
-            isOld = savedInstanceState.getBoolean(My_Key);
+            isOld = savedInstanceState.getBoolean(Constant.EditorActivity_My_Key);
         }
 
 
@@ -128,7 +129,7 @@ public class EditorActivity extends AppCompatActivity {
             isNew = true;
         } else {
             setTitle("Edit Note");
-            int noteId = bundle.getInt(NoteAdapter.NOTE_KEY);
+            int noteId = bundle.getInt(Constant.NoteAdapter_NOTE_KEY);
             viewModel.getData(noteId);
         }
 
@@ -180,7 +181,7 @@ public class EditorActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putBoolean(My_Key, true);
+        outState.putBoolean(Constant.EditorActivity_My_Key, true);
 
         super.onSaveInstanceState(outState);
     }

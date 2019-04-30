@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.fadi.notetakingapp.EditorActivity;
 import com.fadi.notetakingapp.R;
 import com.fadi.notetakingapp.model.Note;
+import com.fadi.notetakingapp.utility.Constant;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ import butterknife.ButterKnife;
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
     private final List<Note> notes;
     private final Context context;
-    public static final String NOTE_KEY = "Note_Key";
+
 
     public NoteAdapter(List<Note> notes, Context context) {
         this.notes = notes;
@@ -49,7 +50,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, EditorActivity.class);
-                intent.putExtra(NOTE_KEY, note.getId());
+                intent.putExtra(Constant.NoteAdapter_NOTE_KEY, note.getId());
                 context.startActivity(intent);
             }
         });

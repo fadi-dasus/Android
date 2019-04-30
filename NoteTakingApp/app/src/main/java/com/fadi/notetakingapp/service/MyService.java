@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import com.fadi.notetakingapp.model.DataItem;
+import com.fadi.notetakingapp.utility.Constant;
 
 import java.io.IOException;
 
@@ -25,8 +26,7 @@ import retrofit2.Call;
 // so we need a local broadcast manager and a receiver in where we want to get the content back
 public class MyService extends IntentService {
 
-    public static final String MY_SERVICE_MESSAGE = "myServiceMessage";
-    public static final String MY_SERVICE_PAYLOAD = "myServicePayload";
+
 
 
 // used for testing purposes
@@ -57,8 +57,8 @@ public class MyService extends IntentService {
         }
 
 //        Return the data to MainActivity using the local broadcast manager
-        Intent messageIntent = new Intent(MY_SERVICE_MESSAGE);
-        messageIntent.putExtra(MY_SERVICE_PAYLOAD, dataItems);
+        Intent messageIntent = new Intent(Constant.MyService_MY_SERVICE_MESSAGE);
+        messageIntent.putExtra(Constant.MyService_MY_SERVICE_PAYLOAD, dataItems);
         LocalBroadcastManager manager =
                 LocalBroadcastManager.getInstance(getApplicationContext());
         manager.sendBroadcast(messageIntent);

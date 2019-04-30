@@ -8,12 +8,12 @@ import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fadi.notetakingapp.model.DataItem;
 import com.fadi.notetakingapp.service.MyService;
+import com.fadi.notetakingapp.utility.Constant;
 import com.fadi.notetakingapp.utility.NetworkHelper;
 
 public class HintActivity extends AppCompatActivity {
@@ -27,7 +27,7 @@ public class HintActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             //receiving the message from the broadcast passing the payload key
 
-            DataItem[] items = (DataItem[]) intent.getParcelableArrayExtra(MyService.MY_SERVICE_PAYLOAD);
+            DataItem[] items = (DataItem[]) intent.getParcelableArrayExtra(Constant.MyService_MY_SERVICE_PAYLOAD);
             int counter =1 ;
             for (DataItem item: items) {
 
@@ -53,7 +53,7 @@ public class HintActivity extends AppCompatActivity {
 
         // listening for messages coming from the broadcast instance
         LocalBroadcastManager.getInstance(getApplicationContext())
-                .registerReceiver(receiver, new IntentFilter(MyService.MY_SERVICE_MESSAGE));
+                .registerReceiver(receiver, new IntentFilter(Constant.MyService_MY_SERVICE_MESSAGE));
 
 
         networkOk = NetworkHelper.checkConnection(this);

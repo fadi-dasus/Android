@@ -1,6 +1,5 @@
 package com.fadi.notetakingapp;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,11 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fadi.notetakingapp.utility.Constant;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -32,13 +31,8 @@ import butterknife.ButterKnife;
 
 // this activity will manage sign in using Firebase auth
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
-    private final String TAG = "FB_SIGNIN";
-    public static final String MY_GLOBAL_PREFS = "my_global_prefs";
-    public static final String EMAIL_KEY = "email_key";
+    private final String TAG = "SignInActivity";
 
-    // Firebase Remote Config settings
-    private final String CONFIG_DENMARK_KEY = "Denmark";
-    private long PROMO_CACHE_DURATION = 1800;
 
     private FirebaseRemoteConfig mFBConfig;
 
@@ -52,8 +46,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     @BindView(R.id.etEmailAddr)
      EditText etEmail;
-
-    private boolean youMadIt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,8 +98,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         //TODO save email __________________________________________________
         SharedPreferences prefs =
-                getSharedPreferences(MY_GLOBAL_PREFS, MODE_PRIVATE);
-        String email = prefs.getString(EMAIL_KEY, "");
+                getSharedPreferences(Constant.SignInActivity_MY_GLOBAL_PREFS, MODE_PRIVATE);
+        String email = prefs.getString(Constant.SignInActivity_EMAIL_KEY, "");
 
         if (!TextUtils.isEmpty(email)) {
             etEmail.setText(email);
@@ -119,10 +111,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         // If in developer mode cacheExpiration is set to 0 so each fetch will retrieve values from
         // the server.
         if (mFBConfig.getInfo().getConfigSettings().isDeveloperModeEnabled()) {
-            PROMO_CACHE_DURATION = 0;
+            Constant.SignInActivity_PROMO_CACHE_DURATION = 0;
         }
         // fetch the values from the Remote Config service
-        mFBConfig.fetch(PROMO_CACHE_DURATION)
+        mFBConfig.fetch(Constant.SignInActivity_PROMO_CACHE_DURATION)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -147,9 +139,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         String logMessage = "";
 
 
-        logMessage = mFBConfig.getString(CONFIG_DENMARK_KEY);
+        logMessage = mFBConfig.getString(Constant.SignInActivity_CONFIG_DENMARK_KEY);
 
-        Toast.makeText(this, logMessage , Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, logMessage , Toast.LENGTH_LONG).show();
 
 
     }
@@ -250,8 +242,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                     //________________________________________
                             String myEmail = etEmail.getText().toString();
                                     SharedPreferences.Editor editor =
-                                            getSharedPreferences(MY_GLOBAL_PREFS, MODE_PRIVATE).edit();
-                                    editor.putString(EMAIL_KEY, myEmail);
+                                            getSharedPreferences(Constant.SignInActivity_MY_GLOBAL_PREFS, MODE_PRIVATE).edit();
+                                    editor.putString(Constant.SignInActivity_EMAIL_KEY, myEmail);
                                     editor.apply();
 
 
@@ -328,6 +320,13 @@ Intent intent = new Intent(SignInActivity.this,YoutubeActivity.class);
                                    startActivity(intent);
 
     }
+
+    /*
+    this for showing that the event has been sent to firebase
+    /adb shell setprop log.tag.FA VERBOSE
+    adb shell setprop log.tag.FA-SVC VERBOSE
+    adb logcat -v time -s FA FA-SVC
+     */
 }
 
 

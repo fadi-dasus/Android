@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,8 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,6 +35,14 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private final String TAG = "FB_SIGNIN";
     public static final String MY_GLOBAL_PREFS = "my_global_prefs";
     public static final String EMAIL_KEY = "email_key";
+
+    // Firebase Remote Config settings
+    private final String CONFIG_DENMARK_KEY = "Denmark";
+    private long PROMO_CACHE_DURATION = 1800;
+
+    private FirebaseRemoteConfig mFBConfig;
+
+
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -58,6 +69,22 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         // Get a reference to the Firebase auth object
         mAuth = FirebaseAuth.getInstance();
+        // reference to the Firebase remote congfig
+        mFBConfig = FirebaseRemoteConfig.getInstance();
+
+        // Enable developer mode to perform more rapid testing.
+        // Config fetches are normally limited to 5 per hour. This
+        // enables many more requests to facilitate testing.
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setDeveloperModeEnabled(BuildConfig.DEBUG)
+                .build();
+        mFBConfig.setConfigSettings(configSettings);
+
+        // Get the default parameter settings from the XML file
+        mFBConfig.setDefaults(R.xml.config);
+
+
+
 
         // Attach a new AuthListener to detect sign in and out
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -75,6 +102,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         };
 
         updateStatus();
+        checkValuesFromFB();
 
         //TODO save email __________________________________________________
         SharedPreferences prefs =
@@ -84,6 +112,45 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         if (!TextUtils.isEmpty(email)) {
             etEmail.setText(email);
         }
+
+    }
+
+    private void checkValuesFromFB() {
+        // If in developer mode cacheExpiration is set to 0 so each fetch will retrieve values from
+        // the server.
+        if (mFBConfig.getInfo().getConfigSettings().isDeveloperModeEnabled()) {
+            PROMO_CACHE_DURATION = 0;
+        }
+        // fetch the values from the Remote Config service
+        mFBConfig.fetch(PROMO_CACHE_DURATION)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.i(TAG, " check successful");
+
+                            // If the fetch was successful, then "activate" the
+                            // values that were retrieved from the server
+                            mFBConfig.activateFetched();
+                        }
+                        else {
+                            Log.e(TAG, " check failed");
+                        }
+
+                        ShowLogMessage();
+                    }
+                });
+    }
+
+    private void ShowLogMessage() {
+
+        String logMessage = "";
+
+
+        logMessage = mFBConfig.getString(CONFIG_DENMARK_KEY);
+
+        Toast.makeText(this, logMessage , Toast.LENGTH_SHORT).show();
+
 
     }
 

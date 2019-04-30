@@ -21,6 +21,9 @@ import com.fadi.notetakingapp.adapter.NoteAdapter;
 import com.fadi.notetakingapp.model.Note;
 
 import com.fadi.notetakingapp.viewmodel.EditorViewModel;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -38,13 +41,17 @@ public class EditorActivity extends AppCompatActivity {
     @BindView(R.id.note_text)
     TextView mTextView;
 
+    private final String TAG = "Firebase";
     TextToSpeech tts;
+    private FirebaseAnalytics mFBAnalytics;
+    private FirebaseRemoteConfig mFBConfig;
 
     private EditorViewModel viewModel;
     // two booleans to check if the note is a new note or an old one
     private boolean isNew = false;
     private boolean isOld = false;
     public static final String My_Key = "KEY";
+
 
 
     @Override
@@ -62,6 +69,20 @@ public class EditorActivity extends AppCompatActivity {
             // checking the status of the note( new or old)
             isOld = savedInstanceState.getBoolean(My_Key);
         }
+
+
+        // Retrieve an instance of the Analytics package
+        mFBAnalytics = FirebaseAnalytics.getInstance(this);
+        // Get the Remote Config instance
+        mFBConfig = FirebaseRemoteConfig.getInstance();
+
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setDeveloperModeEnabled(BuildConfig.DEBUG)
+                .build();
+        mFBConfig.setConfigSettings(configSettings);
+
+
+
         initViewModel();
 
         initTTX();
@@ -180,6 +201,10 @@ public class EditorActivity extends AppCompatActivity {
 
     public void ClickMeToSpeakUP(View view) {
         // TODO Auto-generated method stub
+        Bundle params = new Bundle();
+        params.putInt("ButtonID", view.getId());
+
+
         String text;
         text = mTextView.getText().toString();
         if (text == null || "".equals(text)) {
@@ -187,12 +212,18 @@ public class EditorActivity extends AppCompatActivity {
             tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
         } else
             tts.speak(text + " ", TextToSpeech.QUEUE_FLUSH, null);
+
+        Log.d(TAG, "Speak Button click logged");
+        mFBAnalytics.logEvent("Read", params);
     }
 
 
 
     // speak to text
     public void getSpeechInput(View view) {
+        Bundle params = new Bundle();
+        params.putInt("ButtonID", view.getId());
+
 
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -203,6 +234,13 @@ public class EditorActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Please Check your Speech Input Sensor", Toast.LENGTH_SHORT).show();
         }
+
+        Log.d(TAG, "Speak Button click logged");
+        mFBAnalytics.logEvent("Speak", params);
+
+
+
+
     }
 
     @Override
@@ -219,3 +257,9 @@ public class EditorActivity extends AppCompatActivity {
         }
     }
 }
+
+
+//
+//        adb shell
+//        $ setprop log.tag.FA-SVC VERBOSE
+//        $ logcat -v time -s FA FA-SVC
